@@ -1,32 +1,36 @@
 <accordion close-others="false">
-  <accordion-group is-open="filters[0].expanded">
-    <accordion-heading>
-      <span ng-click="groupClicked(0)">{{filters[0].heading}}</span><span ng-click="clearFilter(0)">  x </span>
-    </accordion-heading>
-    <div ng-show="filters[0].value">{{filters[0].value.name}}</div>
-    <div ng-hide="filters[0].value" class="btn-group-vertical" role="group" aria-label="">
-      <button type="button" ng-click="setFilter(0, {id: 'Overlay 1', name:'Overlay 1'})"  class="btn btn-default">Overlay 1</button>
-      <button type="button" ng-click="setFilter(0, {id: 'Overlay 2', name:'Overlay 2'})"  class="btn btn-default">Overlay 2</button>
-      <button type="button" ng-click="setFilter(0, {id: 'Satellite ', name:'Satellite'})" class="btn btn-default">Satellite</button>
-    </div>
-  </accordion-group>
-  <accordion-group is-open="filters[1].expanded">
-    <accordion-heading>
-      <span ng-click="groupClicked(1)">{{filters[1].heading}}</span><span ng-click="clearFilter(1)">  x </span>
-    </accordion-heading>
-    <div ng-show="filters[1].value">{{filters[1].value.address}}</div>
-    <div ng-hide="filters[1].value" class="input-group">
-      <input type="text" class="form-control" name="address"  id="address" placeholder="address" aria-describedby="address">
-      <input type="text" class="form-control" name="radius"  id="radius" placeholder="radius" aria-describedby="radius">
-      <input type="text" class="form-control" name="address"  id="state" placeholder="state" aria-describedby="state">
-      <input type="text" class="form-control" name="address"  id="county" placeholder="county" aria-describedby="county">
-      <input type="text" class="form-control" name="address"  id="city" placeholder="city" aria-describedby="city">
-      <input type="text" class="form-control" name="address"  id="neighborhood" placeholder="neighborhood" aria-describedby="neighborhood">
+  <accordion-group ng-init="filterOverlay = filters[0]" is-open="filter.open" >
+    <rec-filter-heading filter="filterOverlay" on-x-click="clearFilter(filterOverlay)" on-head-click="filterClicked(filterOverlay)"></rec-filter-heading>
 
+    <!-- widget shown when filter has valid value and is not edit mode -->
+    <div ng-show="filterOverlay.value && !filterOverlay.edit" ng-click="editFilter(filterOverlay)">
+      {{filterOverlay.value.name}}
+    </div>
+    <!-- Filter selection shows when in edit mode -->
+    <div ng-show="filterOverlay.edit" class="btn-group-vertical" role="group" aria-label="">
+      <button type="button" ng-click="setFilter(filterOverlay, {id: 'Overlay 1', name:'Overlay 1'})"  class="btn btn-default">Overlay 1</button>
+      <button type="button" ng-click="setFilter(filterOverlay, {id: 'Overlay 2', name:'Overlay 2'})"  class="btn btn-default">Overlay 2</button>
+      <button type="button" ng-click="setFilter(filterOverlay, {id: 'Satellite ', name:'Satellite'})" class="btn btn-default">Satellite</button>
     </div>
   </accordion-group>
-  <accordion-group heading="POLYGON TOOL">
-    <p>Coming soon...</p>
+  <accordion-group ng-init="filterLocation = filters[1]" is-open="filterLocation.open">
+    <rec-filter-heading filter="filterLocation" on-x-click="clearFilter(filterLocation)" on-head-click="filterClicked(filterLocation)"></rec-filter-heading>
+    <form name="locationForm" novalidate>
+    <div ng-show="locationForm.$valid && !filterLocation.edit" ng-click="editFilter(filterLocation)">{{filterLocation.value.address}}, {{filterLocation.value.city}}, {{filterLocation.value.county}}, {{filterLocation.value.state}}, radius: {{filterLocation.value.radius}}  </div>
+    <div ng-show="filterLocation.edit" class="input-group">
+
+      <input type="text" class="form-control" ng-model="filterLocation.value.address" ng-required="true" name="address"  id="address" placeholder="address" aria-describedby="address">
+      <input type="text" class="form-control" ng-model="filterLocation.value.radius" ng-required="true" name="radius"  id="radius" placeholder="radius" aria-describedby="radius">
+      <input type="text" class="form-control" ng-model="filterLocation.value.state" ng-required="true" name="state"  id="state" placeholder="state" aria-describedby="state">
+      <input type="text" class="form-control" ng-model="filterLocation.value.county" ng-required="true" name="county"  id="county" placeholder="county" aria-describedby="county">
+      <input type="text" class="form-control" ng-model="filterLocation.value.city" ng-required="true" name="city"  id="city" placeholder="city" aria-describedby="city">
+      <input type="text" class="form-control" ng-model="filterLocation.value.neighborhood" name="neighborhood"  id="neighborhood" placeholder="neighborhood" aria-describedby="neighborhood">
+    </div>
+    </form>
+  </accordion-group>
+  <accordion-group ng-init="filterPoligonTool = filters[2]" is-open="filter.open" >
+    <rec-filter-heading filter="filterPoligonTool" on-x-click="clearFilter(filterPoligonTool)" on-head-click="filterClicked(filterPoligonTool)"></rec-filter-heading>
+    <input type="text" class="form-control" ng-model="filterPoligonTool.value.poligonTool" ng-required="true" name="poligonTool"  id="poligonTool" placeholder="address" aria-describedby="poligonTool">
   </accordion-group>
   <accordion-group heading="SQUARE FOOTAGE">
     <p>Coming soon...</p>

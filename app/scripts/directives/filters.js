@@ -5,67 +5,107 @@
 
 var app = angular.module('reconsole.components', ['ui.bootstrap']);
 
+
+app.directive('recFilterHeading', function() {
+  return {
+    restrict: 'E',
+    templateUrl: 'scripts/directives/rec-filter-heading.tpl.html',
+    scope: {
+      filter: '=',
+      onHeadClick: '&',
+      onXClick: '&'
+    }
+  }
+});
+
 app.directive('recFilters', function() {
   return {
-    restrict: 'AE',
-    scope: {},
+    restrict: 'E',
     templateUrl: 'scripts/directives/rec-filters.tpl.html',
+    scope: {},
     link: function(scope, elem, attrs) {
 
       //Directive functionality goes here.
 
+
       scope.filters = [
         {
           heading: 'OVERLAY',
-          expanded: false
+          open: false
 
         },
          {
           heading: 'LOCATION',
-          expanded: false
+          open: false
         },
         {
           heading: 'POLIGON TOOL',
-          expanded: false
+          open: false
         }
         ];
 
 
-      //Directive functionality goes here.
-      scope.setFilter = function(index, value) {
-        scope.filters[index].value = value;
+      /**
+       * Set the value of a filter
+       * @param filter The filter object
+       * @param value  The value. Could be an object or a primitive
+       */
+      scope.setFilter = function(filter, value) {
+        filter.value = value;
+        filter.edit = false;
       };
 
-      scope.groupClicked = function(index) {
+      /**
+       * When the header of filter is clicked
+       * If this group is close then close others that has no values.
+       * Filters with values will remain open but only showing theirs widgets
+       * @param filter
+       */
+      scope.filterClicked = function(filter) {
 
-        var filter = scope.filters[index];
-
-        //We are going to open this. Close all that has no values
-        if (!filter.expanded) {
+        if (!filter.open) {
           closeFiltersWithNoValues();
-        }
-        else {
-          filter.expanded = false;
+          filter.open = true;
+          if (!filter.value)
+             filter.edit = true;
         }
       };
 
+      /**
+       * When clicking on a widget to change the filters value.
+       * Filters should show current filter selection
+       * @param filter
+       */
+      scope.editFilter = function(filter) {
+
+        closeFiltersWithNoValues(filter);
+        filter.edit = true;
+      };
+
+
+      /**
+       * Close all filters that has no value or selection.
+       * Shows widgets for the filters that hava valid value or selection
+       * @param currentFilter
+       */
       function closeFiltersWithNoValues() {
         scope.filters.forEach(function(filter) {
-          filter.expanded = getFilterValue(filter) ? true : false;
+
+          filter.open = filter.value ? true : false;
+          filter.edit = false;
+
         })
       }
 
-      scope.clearFilter = function(index) {
-        scope.filters[index].value = null;
+      /**
+       * Reset a filter value.
+       * @param filter
+       */
+      scope.clearFilter = function(filter) {
+        scope.setFilter(filter, null);
+        filter.edit = true;
       };
 
-      function filterHasValue(index) {
-        return getFilterValue(scope.filters(index));
-      }
-
-      function getFilterValue(filter) {
-        return filter.value;
-      }
 
     }
   };
