@@ -1,13 +1,14 @@
+<div class="rec-dark-theme">
 <div class="rec-accordion">
-  <div class="rec-accordion-group">
-   <rec-filter-heading filter="filters[0]"
+  <div class="rec-panel" ng-class="{'expanded': filters[0].open}">
+   <rec-filter-heading class="rec-panel-header" filter="filters[0]"
                        on-x-click="clearFilter(filters[0])"
                        on-head-click="filterClicked(filters[0])">
    </rec-filter-heading>
 
-   <div ng-show="filters[0].open" class="rec-accordion-container">
+   <div class="rec-panel-content">
     <!-- widget shown when filter has valid value and is not edit mode -->
-    <div ng-show="!!filters[0].value && !filters[0].edit" ng-click="editFilter(filters[0])">
+    <div class="widget-selection" ng-show="!!filters[0].value && !filters[0].edit" ng-click="editFilter(filters[0])">
       {{filters[0].value.name}}
     </div>
     <!-- Filter selection shows when in edit mode -->
@@ -18,14 +19,14 @@
     </div>
    </div>
   </div> <!-- accordion group -->
-  <div class="rec-accordion-group">
-    <rec-filter-heading filter="filters[1]"
+  <div class="rec-panel" ng-class="{'expanded': filters[1].open}">
+    <rec-filter-heading  class="rec-panel-header" filter="filters[1]"
                         on-x-click="clearFilter(filters[1])"
                         on-head-click="filterClicked(filters[1])">
     </rec-filter-heading>
 
-    <div class="rec-according-container" ng-show="filters[1].open">
-    <div ng-show="locationForm.$valid && !filters[1].edit" ng-click="editFilter(filters[1])">{{filters[1].value.address}}, {{filters[1].value.city}}, {{filters[1].value.county}}, {{filters[1].value.state}}, radius: {{filters[1].value.radius}}  </div>
+    <div class="rec-panel-content">
+    <div class="widget-selection" ng-show="locationForm.$valid && !filters[1].edit" ng-click="editFilter(filters[1])">{{filters[1].value.address}}, {{filters[1].value.city}}, {{filters[1].value.county}}, {{filters[1].value.state}}, radius: {{filters[1].value.radius}}  </div>
     <div ng-show="filters[1].edit" class="input-group">
       <form name="locationForm" novalidate>
       <input type="text" class="form-control" ng-model="filters[1].value.address" ng-required="true" name="address"  id="address" placeholder="address" aria-describedby="address">
@@ -72,4 +73,5 @@
   <!--<p>Coming soon...</p>-->
 <!--</accordion-group>-->
 
+</div>
 </div>

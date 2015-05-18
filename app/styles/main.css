@@ -77,3 +77,105 @@ body {
     border-bottom: 0;
   }
 }
+
+/** Accordion **/
+
+/* Base styles
+ ***************************************/
+.rec-accordion { display: block;  }
+
+.rec-panel {
+  display: block; }
+.rec-panel.expanded .rec-panel-content {
+  visibility: visible; }
+
+.rec-panel-header {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  outline: none; }
+.rec-panel-header:focus {
+  outline: none; }
+.rec-panel-header  {
+  display: block; }
+
+.rec-panel-content {
+  display: block;
+  position: relative;
+  overflow: hidden;
+
+ }
+
+/* Theme: default
+   ***************************************/
+.rec-dark-theme .widget-selection {
+  background-color: #2196F3;
+  color: #fff;
+  padding: 6px;
+}
+
+.rec-dark-theme .rec-accordion {
+  margin-top: 20px;
+  padding-left: 20px;
+  background-color: rgba(5, 5, 10, 0.92)
+}
+.rec-dark-theme .rec-panel {
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: transform 0.5s;
+  color: #a3a3a3
+}
+
+.rec-dark-theme .rec-panel.expanded .rec-panel-header::after {
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+  opacity: 0; }
+.rec-dark-theme .rec-panel.expanded .rec-panel-header::before {
+  -webkit-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  transform: rotate(0deg); }
+.rec-dark-theme .rec-panel.expanded .rec-panel-content {
+  opacity: 1;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0); }
+.rec-dark-theme .rec-panel.expanded-add .rec-panel-content, .rec-dark-theme .rec-panel.expanded-remove .rec-panel-content {
+  -webkit-transition: max-height 0.5s;
+  transition: max-height 0.5s; }
+.rec-dark-theme .rec-panel-header {
+  padding: 5px 0;
+  margin-bottom: 4px;
+  border-bottom: 0px solid;
+  -webkit-transition: color 0.25s, border-color 0.5s;
+  transition: color 0.25s, border-color 0.5s; }
+.rec-dark-theme .rec-panel-header::after, .rec-dark-theme .rec-panel-header::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 10px;
+  height: 1px;
+  background-color: #2196F3;
+  -webkit-transform-origin: 50% 50%;
+  -ms-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+  -webkit-transition: all 0.25s;
+  transition: all 0.25s; }
+.rec-dark-theme .rec-panel-header::before {
+  -webkit-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  transform: rotate(-90deg); }
+.rec-dark-theme .rec-panel-header:hover, .rec-dark-theme .rec-panel-header:focus {
+  color: #2196F3; }
+.rec-dark-theme .rec-panel-content {
+  padding-bottom: 20px;
+  will-change: transform, opacity;
+  opacity: 0;
+  -webkit-transform: translate3d(0, 30px, 0);
+  transform: translate3d(0, 30px, 0);
+  -webkit-transition: -webkit-transform 0.5s, opacity 0.5s;
+  transition: transform 0.5s, opacity 0.5s; }
