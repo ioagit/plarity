@@ -52,7 +52,9 @@ app.directive('recFilters', function() {
        */
       scope.setFilter = function(filter, value) {
         filter.value = value;
-        filter.edit = false;
+        scope.filterClicked(filter);
+
+
       };
 
       /**
@@ -64,11 +66,15 @@ app.directive('recFilters', function() {
       scope.filterClicked = function(filter) {
 
         if (!filter.open) {
-          closeFiltersWithNoValues();
+          closeFiltersWithNoValues(filter);
+          filter.edit = !filter.value;
           filter.open = true;
-          if (!filter.value)
-             filter.edit = true;
         }
+        else {
+          filter.open = !!filter.value;
+          filter.edit = false;
+        }
+
       };
 
       /**
@@ -77,7 +83,6 @@ app.directive('recFilters', function() {
        * @param filter
        */
       scope.editFilter = function(filter) {
-
         closeFiltersWithNoValues(filter);
         filter.edit = true;
       };
@@ -88,10 +93,13 @@ app.directive('recFilters', function() {
        * Shows widgets for the filters that hava valid value or selection
        * @param currentFilter
        */
-      function closeFiltersWithNoValues() {
+      function closeFiltersWithNoValues(currentFilter) {
         scope.filters.forEach(function(filter) {
 
-          filter.open = filter.value ? true : false;
+          if (filter === currentFilter)
+             return;
+
+          filter.open = !!filter.value;
           filter.edit = false;
 
         })
@@ -102,8 +110,10 @@ app.directive('recFilters', function() {
        * @param filter
        */
       scope.clearFilter = function(filter) {
-        scope.setFilter(filter, null);
+        filter.value = null;
+        scope.filterClicked(filter);
         filter.edit = true;
+
       };
 
 

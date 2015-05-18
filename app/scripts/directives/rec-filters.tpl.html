@@ -1,9 +1,13 @@
 <accordion close-others="false">
-  <accordion-group ng-init="filterOverlay = filters[0]" is-open="filter.open" >
-    <rec-filter-heading filter="filterOverlay" on-x-click="clearFilter(filterOverlay)" on-head-click="filterClicked(filterOverlay)"></rec-filter-heading>
+  <accordion-group ng-init="filterOverlay = filters[0]" is-open="filterOverlay.open">
+   <rec-filter-heading filter="filterOverlay"
+                       on-x-click="clearFilter(filterOverlay)"
+                       on-head-click="filterClicked(filterOverlay)">
+   </rec-filter-heading>
+
 
     <!-- widget shown when filter has valid value and is not edit mode -->
-    <div ng-show="filterOverlay.value && !filterOverlay.edit" ng-click="editFilter(filterOverlay)">
+    <div ng-show="!!filterOverlay.value && !filterOverlay.edit" ng-click="editFilter(filterOverlay)">
       {{filterOverlay.value.name}}
     </div>
     <!-- Filter selection shows when in edit mode -->
@@ -14,23 +18,31 @@
     </div>
   </accordion-group>
   <accordion-group ng-init="filterLocation = filters[1]" is-open="filterLocation.open">
-    <rec-filter-heading filter="filterLocation" on-x-click="clearFilter(filterLocation)" on-head-click="filterClicked(filterLocation)"></rec-filter-heading>
-    <form name="locationForm" novalidate>
+    <rec-filter-heading filter="filterLocation"
+                        on-x-click="clearFilter(filterLocation)"
+                        on-head-click="filterClicked(filterLocation)">
+    </rec-filter-heading>
+
     <div ng-show="locationForm.$valid && !filterLocation.edit" ng-click="editFilter(filterLocation)">{{filterLocation.value.address}}, {{filterLocation.value.city}}, {{filterLocation.value.county}}, {{filterLocation.value.state}}, radius: {{filterLocation.value.radius}}  </div>
     <div ng-show="filterLocation.edit" class="input-group">
-
+      <form name="locationForm" novalidate>
       <input type="text" class="form-control" ng-model="filterLocation.value.address" ng-required="true" name="address"  id="address" placeholder="address" aria-describedby="address">
       <input type="text" class="form-control" ng-model="filterLocation.value.radius" ng-required="true" name="radius"  id="radius" placeholder="radius" aria-describedby="radius">
       <input type="text" class="form-control" ng-model="filterLocation.value.state" ng-required="true" name="state"  id="state" placeholder="state" aria-describedby="state">
       <input type="text" class="form-control" ng-model="filterLocation.value.county" ng-required="true" name="county"  id="county" placeholder="county" aria-describedby="county">
       <input type="text" class="form-control" ng-model="filterLocation.value.city" ng-required="true" name="city"  id="city" placeholder="city" aria-describedby="city">
       <input type="text" class="form-control" ng-model="filterLocation.value.neighborhood" name="neighborhood"  id="neighborhood" placeholder="neighborhood" aria-describedby="neighborhood">
+      </form>
     </div>
-    </form>
+
   </accordion-group>
-  <accordion-group ng-init="filterPoligonTool = filters[2]" is-open="filter.open" >
-    <rec-filter-heading filter="filterPoligonTool" on-x-click="clearFilter(filterPoligonTool)" on-head-click="filterClicked(filterPoligonTool)"></rec-filter-heading>
-    <input type="text" class="form-control" ng-model="filterPoligonTool.value.poligonTool" ng-required="true" name="poligonTool"  id="poligonTool" placeholder="address" aria-describedby="poligonTool">
+  <accordion-group ng-init="filterPoligonTool = filters[2]" is-open="filterPoligonTool.open" >
+    <rec-filter-heading
+      filter="filterPoligonTool"
+      on-x-click="clearFilter(filterPoligonTool)"
+      on-head-click="filterClicked(filterPoligonTool)">
+    </rec-filter-heading>
+    <input type="text" class="form-control" ng-model="filterPoligonTool.value.poligonTool" ng-required="true" name="poligonTool"  id="poligonTool" placeholder="poligon tool" aria-describedby="poligonTool">
   </accordion-group>
   <accordion-group heading="SQUARE FOOTAGE">
     <p>Coming soon...</p>
