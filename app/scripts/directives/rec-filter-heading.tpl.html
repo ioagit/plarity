@@ -1,4 +1,4 @@
-<accordion-heading>
+<div class="accordion-heading">
   <span ng-click="onHeadClick(filter)">{{filter.heading}}</span>
 
   <!-- Show X when filter has value to be clear or reset -->
@@ -10,4 +10,4 @@
   <!-- Show - when filter is open and filter has no value yet -->
   <span ng-show="filter.open && !filter.value" class="pull-right" ng-click="onHeadClick(filter)"> - </span>
 
-</accordion-heading>
+</div>
