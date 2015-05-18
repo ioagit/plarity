@@ -3,7 +3,7 @@
  */
 
 
-var app = angular.module('reconsole.components', ['ui.bootstrap']);
+var app = angular.module('reconsole.components', []);
 
 
 app.directive('recFilterHeading', function() {
