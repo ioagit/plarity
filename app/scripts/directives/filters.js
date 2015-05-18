@@ -32,19 +32,34 @@ app.directive('recFilters', function() {
 
       scope.filters = [
         {
+          key: 'overlay',
           heading: 'OVERLAY',
           open: false
 
         },
          {
+           key: 'location',
           heading: 'LOCATION',
           open: false
         },
         {
+          key: 'poligon',
           heading: 'POLIGON TOOL',
+          open: false
+        },
+        {
+          key: 'sqtft',
+          heading: 'SQUARE FOOTAGE',
           open: false
         }
         ];
+
+      /**
+       * Notify the host of component of data changes
+       */
+      function notifyHost() {
+        scope.onFilterChange({filters:  parseFilters(scope.filters)});
+      }
 
 
       /**
@@ -54,9 +69,23 @@ app.directive('recFilters', function() {
        */
       scope.setFilter = function(filter, value) {
         filter.value = value;
+        notifyHost();
         scope.filterClicked(filter);
-        scope.onFilterChange({filters:  scope.filters});
       };
+
+      scope.onChange = function(form) {
+        if (form.$valid)
+            notifyHost();
+      };
+
+      function parseFilters(filters) {
+        var values = {};
+        angular.forEach(filters, function(obj) {
+          values[obj.key] = obj.value;
+        });
+
+        return values;
+      }
 
       /**
        * When the header of filter is clicked
@@ -112,6 +141,7 @@ app.directive('recFilters', function() {
        */
       scope.clearFilter = function(filter) {
         filter.value = null;
+        notifyHost();
         scope.filterClicked(filter);
         filter.edit = true;
 

@@ -29,47 +29,80 @@
     <div class="widget-selection" ng-show="locationForm.$valid && !filters[1].edit" ng-click="editFilter(filters[1])">{{filters[1].value.address}}, {{filters[1].value.city}}, {{filters[1].value.county}}, {{filters[1].value.state}}, radius: {{filters[1].value.radius}}  </div>
     <div ng-show="filters[1].edit" class="input-group">
       <form name="locationForm" novalidate>
-      <input type="text" class="form-control" ng-model="filters[1].value.address" ng-required="true" name="address"  id="address" placeholder="address" aria-describedby="address">
-      <input type="text" class="form-control" ng-model="filters[1].value.radius" ng-required="true" name="radius"  id="radius" placeholder="radius" aria-describedby="radius">
-      <input type="text" class="form-control" ng-model="filters[1].value.state" ng-required="true" name="state"  id="state" placeholder="state" aria-describedby="state">
-      <input type="text" class="form-control" ng-model="filters[1].value.county" ng-required="true" name="county"  id="county" placeholder="county" aria-describedby="county">
-      <input type="text" class="form-control" ng-model="filters[1].value.city" ng-required="true" name="city"  id="city" placeholder="city" aria-describedby="city">
-      <input type="text" class="form-control" ng-model="filters[1].value.neighborhood" name="neighborhood"  id="neighborhood" placeholder="neighborhood" aria-describedby="neighborhood">
+        <div class="form-group" ng-class="{ 'has-error' : locationForm.address.$invalid && !locationForm.address.$pristine }">
+      <input type="text" class="form-control" ng-change="onChange(locationForm)"
+             ng-model="filters[1].value.address"
+             ng-required="true" ng-minlength="4"
+             name="address"  id="address" placeholder="address" aria-describedby="address">
+        <p ng-show="locationForm.address.$error.required && !locationForm.address.$pristine" class="help-block">Address is required.</p>
+        <p ng-show="locationForm.address.$error.minlength" class="help-block">Address is too short.</p>
+       </div>
+      <input type="text" class="form-control" ng-change="onChange(locationForm)" ng-model="filters[1].value.radius"
+             ng-required="true" name="radius"  id="radius" placeholder="radius" aria-describedby="radius">
+      <input type="text" class="form-control" ng-change="onChange(locationForm)" ng-model="filters[1].value.state"
+             ng-required="true" ng-minlength="2" ng-maxlength="15"
+             name="state"  id="state" placeholder="state" aria-describedby="state">
+      <input type="text" class="form-control" ng-change="onChange(locationForm)" ng-model="filters[1].value.county" ng-required="true" name="county"  id="county" placeholder="county" aria-describedby="county">
+      <input type="text" class="form-control" ng-change="onChange(locationForm)" ng-model="filters[1].value.city" ng-required="true" name="city"  id="city" placeholder="city" aria-describedby="city">
+      <input type="text" class="form-control" ng-change="onChange(locationForm)" ng-model="filters[1].value.neighborhood" name="neighborhood"  id="neighborhood" placeholder="neighborhood" aria-describedby="neighborhood">
       </form>
     </div>
       </div>
 
   </div>
-  <!--<accordion-group ng-init="filterPoligonTool = filters[2]" is-open="filterPoligonTool.open" >-->
-    <!--<rec-filter-heading-->
-      <!--filter="filterPoligonTool"-->
-      <!--on-x-click="clearFilter(filterPoligonTool)"-->
-      <!--on-head-click="filterClicked(filterPoligonTool)">-->
-    <!--</rec-filter-heading>-->
-    <!--<input type="text" class="form-control" ng-model="filterPoligonTool.value.poligonTool" ng-required="true" name="poligonTool"  id="poligonTool" placeholder="poligon tool" aria-describedby="poligonTool">-->
+  <div class="rec-panel" ng-class="{'expanded': filters[2].open}">
+    <rec-filter-heading  class="rec-panel-header" filter="filters[2]"
+                         on-x-click="clearFilter(filters[2])"
+                         on-head-click="filterClicked(filters[2])">
+    </rec-filter-heading>
+    <div class="rec-panel-content">
+      <div class="widget-selection" ng-show="poligonForm.$valid && !filters[2].edit" ng-click="editFilter(filters[2])">
+        {{filters[2].value.poligonTool}}
+      </div>
+      <div ng-show="filters[2].edit" class="input-group">
+        <form name="poligonForm" novalidate>
+          <input type="text"  ng-change="onChange(poligonForm)" class="poligonForm" ng-model="filters[2].value.poligonTool" ng-required="true" name="poligonTool"  id="poligonTool" placeholder="poligon tool" aria-describedby="poligonTool">
+        </form>
+      </div>
+    </div>  <!-- rec-panel-content -->
+  </div> <!-- rec panel -->
+
+  <div class="rec-panel" ng-class="{'expanded': filters[3].open}">
+      <rec-filter-heading  class="rec-panel-header"  filter="filters[3]"
+                           on-x-click="clearFilter(filters[3])"
+                           on-head-click="filterClicked(filters[3])">
+      </rec-filter-heading>
+      <div class="rec-panel-content">
+        <div ng-show="filters[3].edit" class="input-group">
+        coming soon...
+          </div>
+       </div>  <!-- rec-panel-content -->
+    </div> <!-- rec panel -->
+
+
   <!--</accordion-group>-->
-  <!--<accordion-group heading="SQUARE FOOTAGE">-->
+  <!--<div class="rec-accordion" heading="SQUARE FOOTAGE">-->
     <!--<p>Coming soon...</p>-->
   <!--</accordion-group>-->
-  <!--<accordion-group heading="LOT SIZE">-->
+  <!--<div class="rec-accordion" heading="LOT SIZE">-->
     <!--<p>Coming soon...</p>-->
   <!--</accordion-group>-->
-  <!--<accordion-group heading="PRICE">-->
+  <!--<div class="rec-accordion" heading="PRICE">-->
     <!--<p>Coming soon...</p>-->
   <!--</accordion-group>-->
-  <!--<accordion-group heading="$/SQFT">-->
+  <!--<div class="rec-accordion" heading="$/SQFT">-->
     <!--<p>Coming soon...</p>-->
   <!--</accordion-group>-->
-  <!--<accordion-group heading="SOLD WITHIN">-->
+  <!--<div class="rec-accordion" heading="SOLD WITHIN">-->
     <!--<p>Coming soon...</p>-->
   <!--</accordion-group>-->
-  <!--<accordion-group heading="YEAR BUILD">-->
+  <!--<div class="rec-accordion" heading="YEAR BUILD">-->
     <!--<p>Coming soon...</p>-->
   <!--</accordion-group>-->
-  <!--<accordion-group heading="STORIES">-->
+  <!--<div class="rec-accordion" heading="STORIES">-->
     <!--<p>Coming soon...</p>-->
   <!--</accordion-group>-->
-  <!--<accordion-group heading="MORE OPTIONS">-->
+  <!--<div class="rec-accordion" heading="MORE OPTIONS">-->
   <!--<p>Coming soon...</p>-->
 <!--</accordion-group>-->
 
