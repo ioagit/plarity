@@ -1,4 +1,20 @@
-<div class="row marketing">
-  <h4>Filters component</h4>
-  <rec-filters></rec-filters>
+<div class="row-fluid">
+  <div class="col-md-4">
+  <rec-filters on-filter-change="onFilterChange(filters)"></rec-filters>
+  </div>
+  <div class="col-md-8">
+    <h3>Rec Filter Component behavior</h3>
+    <ul>
+      <li>Initial state all filters are closed. A + button is shown on the right of each filter</li>
+      <li>When a filter is open but there is no value or selection on that filter the '-' button shows to close that filter </li>
+      <li>When a selection is made or the filter has value then an 'X' button is shown to reset that filter</li>
+      <li>When a filter has a selection or value filter cannot be fully closed. It shows a widget with the value or selection.</li>
+      <li>When a clicking on a widget inside the filter that filter goes into edit mode.</li>
+      <li>When selecting a filter, all other filters get fully closed if they have no value or the filter shows the widget value</li>
+      <li>The component notifies the host that new values for the filter are in everytime any filter changes.</li>
+    </ul>
+    <p>Current Filter values</p>
+    <pre>{{filterValues | json}}</pre>
+
+  </div>
 </div>

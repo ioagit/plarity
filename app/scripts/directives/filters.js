@@ -22,7 +22,9 @@ app.directive('recFilters', function() {
   return {
     restrict: 'E',
     templateUrl: 'scripts/directives/rec-filters.tpl.html',
-    scope: {},
+    scope: {
+      onFilterChange: '&'
+    },
     link: function(scope, elem, attrs) {
 
       //Directive functionality goes here.
@@ -53,8 +55,7 @@ app.directive('recFilters', function() {
       scope.setFilter = function(filter, value) {
         filter.value = value;
         scope.filterClicked(filter);
-
-
+        scope.onFilterChange({filters:  scope.filters});
       };
 
       /**

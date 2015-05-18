@@ -9,5 +9,8 @@
  */
 angular.module('plarityApp')
   .controller('FiltersCtrl', function ($scope) {
-    //Nothing here yet
+    $scope.filterValues = {};
+    $scope.onFilterChange = function(filters) {
+      $scope.filterValues = filters;
+    }
   });
